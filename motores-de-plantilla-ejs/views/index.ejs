@@ -1,0 +1,59 @@
+<%- include("head") %>
+<!-- Incluye el contenido del archivo "head.ejs" -->
+
+<body>
+  <%- include("navbar") %>
+  <!-- Incluye el contenido del archivo "navbar.ejs" -->
+
+  <div class="p-3 mb-4 bg-body-tertiary rounded-3">
+    <div class="container-fluid py-5 text-center">
+      <h1 class="display-5 fw-bold"><%= title %></h1>
+      <!-- Muestra el título principal del contenido -->
+      <p class="fs-4 my-4"><%= message %></p>
+      <!-- Muestra un mensaje de texto relacionado con el contenido -->
+      <a href="/productos">
+        <!-- Crea un enlace hacia la ruta "/productos" -->
+        <button class="btn btn-dark btn-lg mt-3 px-5" type="button">
+          Productos
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <div class="container my-5 py-4">
+    <div class="row align-items-md-stretch">
+      <div class="col-md-6">
+        <div class="h-100 p-5 text-bg-dark rounded-3">
+          <h2><%= titleCard1 %></h2>
+          <!-- Muestra el título de la primera tarjeta -->
+          <p><%= messageCard1 %></p>
+          <!-- Muestra el mensaje de la primera tarjeta -->
+          <a href="https://expressjs.com/es/guide/using-template-engines.html">
+            <!-- Crea un enlace hacia la documentación de Express.js -->
+            <button class="btn btn-outline-light" type="button">
+              Documentación
+            </button>
+          </a>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+          <h2><%= titleCard2 %></h2>
+          <!-- Muestra el título de la segunda tarjeta -->
+          <p><%= messageCard2 %></p>
+          <!-- Muestra el mensaje de la segunda tarjeta -->
+          <a href="https://ejs.co/">
+            <!-- Crea un enlace hacia la documentación de EJS -->
+            <button class="btn btn-outline-secondary" type="button">
+              Documentación
+            </button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include("footer") %>
+  <!-- Incluye el contenido del archivo "footer.ejs" -->
+</body>

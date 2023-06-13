@@ -1,0 +1,31 @@
+<!-- incluye el contenido del archivo "head.ejs" en esta ubicación. -->
+<%- include("head") %>
+<!-- Incluye el archivo "head.ejs" -->
+
+<body>
+  <%- include("navbar") %>
+  <!-- Incluye el archivo "navbar.ejs" -->
+
+  <div class="h-75 d-flex align-items-center">
+    <div class="container alert alert-danger my-5 p-5 w-50 h-75" role="alert">
+      <h4 class="alert-heading"><%= title %></h4>
+      <!-- Muestra el valor de la variable "title" -->
+      <p><%= message %></p>
+      <!-- Muestra el valor de la variable "message" -->
+      <hr />
+      <p class="p-3 text-center"><%= suggestSolution %></p>
+      <!-- Muestra el valor de la variable "suggestSolution" -->
+      <div class="d-flex justify-content-center">
+        <img
+          src="https://static.vecteezy.com/system/resources/previews/010/892/327/original/x-transparent-free-png.png"
+          class="w-25"
+          alt="error"
+        />
+      </div>
+      <hr />
+    </div>
+  </div>
+
+  <%- include("footer") %>
+  <!-- Incluye el archivo "footer.ejs" -->
+</body>
