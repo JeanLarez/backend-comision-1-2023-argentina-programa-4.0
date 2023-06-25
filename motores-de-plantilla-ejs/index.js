@@ -3,10 +3,10 @@ const app = express();
 const PORT = 3000;
 
 const computerProducts = [
-  { name: "Notebook Lenono", price: 720 },
-  { name: "Macbook Air 13", price: 1250 },
-  { name: "Tablet Droid 10.1", price: 350 },
-  { name: "Prueba", price: 350 },
+  { id: 1, name: "Notebook Lenono", price: 720 },
+  { id: 2, name: "Macbook Air 13", price: 1250 },
+  { id: 3, name: "Tablet Droid 10.1", price: 350 },
+  { id: 4, name: "Prueba", price: 350 },
 ];
 
 app.set("view engine", "ejs"); // Configuración del motor de plantillas EJS

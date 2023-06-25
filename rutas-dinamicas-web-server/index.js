@@ -44,7 +44,7 @@ app.get("/cursos", (req, res) => {
       }
     }
   }
-  res.send(respuesta);
+  res.json(respuesta);
 
   //otra opción:
   //   let respuesta = [];
