@@ -1,0 +1,104 @@
+[
+    {
+        "id": 1,
+        "nombre": "Notebook 14\" FHD",
+        "importe": 115000,
+        "categoria": "Portátil"
+    },
+    {
+        "id": 2,
+        "nombre": "Tablet PAD 9.7\"",
+        "importe": 195000,
+        "categoria": "Tablet"
+    },
+    {
+        "id": 3,
+        "nombre": "Macbook Air 13",
+        "importe": 745000,
+        "categoria": "Portátil"
+    },
+    {
+        "id": 4,
+        "nombre": "Tablet DROID 10.1\"",
+        "importe": 165000,
+        "categoria": "Tablet"
+    },
+    {
+        "id": 5,
+        "nombre": "Smartwatch 1.8\" black",
+        "importe": 22500,
+        "categoria": "Relojes"
+    },
+    {
+        "id": 6,
+        "nombre": "Smartwatch 2\" red",
+        "importe": 24200,
+        "categoria": "Relojes"
+    },
+    {
+        "id": 7,
+        "nombre": "Monitor 24\" Full HD",
+        "importe": 189000,
+        "categoria": "Periféricos"
+    },
+    {
+        "id": 8,
+        "nombre": "Teclado inalámbrico",
+        "importe": 4500,
+        "categoria": "Periféricos"
+    },
+    {
+        "id": 9,
+        "nombre": "Ratón óptico",
+        "importe": 1500,
+        "categoria": "Periféricos"
+    },
+    {
+        "id": 10,
+        "nombre": "Auriculares Bluetooth",
+        "importe": 3500,
+        "categoria": "Accesorios"
+    },
+    {
+        "id": 11,
+        "nombre": "Cámara de seguridad",
+        "importe": 9500,
+        "categoria": "Electrónica"
+    },
+    {
+        "id": 12,
+        "nombre": "Impresora láser",
+        "importe": 85000,
+        "categoria": "Impresoras"
+    },
+    {
+        "id": 13,
+        "nombre": "Altavoz portátil",
+        "importe": 6500,
+        "categoria": "Audio"
+    },
+    {
+        "id": 14,
+        "nombre": "Memoria USB 64GB",
+        "importe": 1200,
+        "categoria": "Almacenamiento"
+    },
+    {
+        "id": 15,
+        "nombre": "Disco duro externo 1TB",
+        "importe": 2999,
+        "categoria": "Almacenamiento"
+    },
+    {
+        "id": 16,
+        "nombre": "Cable HDMI 2m",
+        "importe": 500,
+        "categoria": "Cables"
+    },
+    {
+        "id": 17,
+        "nombre": "Cargador de pared USB",
+        "importe": 800,
+        "categoria": "Cargadores"
+    }
+]
