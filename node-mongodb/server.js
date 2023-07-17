@@ -192,6 +192,39 @@ app.put("/frutas/:id", async (req, res) => {
   }
 });
 
+
+//Ruta para modificar un campo en un recurso
+app.patch("/frutas/:id", async (req, res) => {
+  const idFruta = parseInt(req.params.id);
+  const nuevosDatos = req.body;
+  try {
+    if (!nuevosDatos) {
+      res.status(400).send("Error en el formato de datos a crear.");
+    }
+
+    // Conexión a la base de datos
+    const client = await connectToDB();
+    if (!client) {
+      res.status(500).send("Error al conectarse a MongoDB");
+    }
+
+    const db = client.db("frutas");
+    const collection = db.collection("frutas");
+
+    await collection.updateOne({ id: idFruta }, { $set: nuevosDatos });
+
+    console.log("Fruta Modificada");
+
+    res.status(200).send(nuevosDatos);
+  } catch (error) {
+    // Manejo de errores al modificar la fruta
+    res.status(500).send("Error al modificar la fruta");
+  } finally {
+    // Desconexión de la base de datos
+    await disconnectFromMongoDB();
+  }
+});
+
 // Ruta para eliminar un recurso
 app.delete("/frutas/:id", async (req, res) => {
   const idFruta = parseInt(req.params.id);
