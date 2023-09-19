@@ -2,184 +2,843 @@
 Desafíos y ejercicios. Construcción de aplicaciones de servidor (back-end). Creación de servicios web que proveen datos a aplicaciones web front-end, aplicaciones de escritorio como también aplicaciones móviles. Creación y administración de bases de datos SQL y noSQL, e integradas éstas a los servicios web.
 
 
-<!-- Clase sobre Documentación y Lenguaje Markdown -->
+# API de Posts con Node.js, Express y Sequelize
 
-<!-- # Título de primer nivel (encabezado 1)
-## Título de primer nivel (encabezado 2)
-### Título de primer nivel (encabezado 3)
-#### Título de primer nivel (encabezado 4)
-##### Título de primer nivel (encabezado 5)
-###### Título de primer nivel (encabezado 6) -->
+Esta es una API de ejemplo que utiliza Node.js, Express y Sequelize para gestionar posts, comentarios, usuarios, etiquetas y categorías. A continuación, encontrarás la documentación para utilizar esta API.
 
+## Modelo - Entidad - Relación
 
-<!-- **Texto en negrita** pero seguimos redactando información para nuestra ***aplicación***.
+![Modelo Api Post](https://i.imgur.com/71yGKvH.png)
 
-*Texto en negrita*
+![Modelo Api Post](https://i.imgur.com/vFMGmKd.png)
 
-***Texto en negrita*** -->
+![Modelo Api Post](https://i.imgur.com/ULQa9Nx.png)
 
-<!-- ~~Texto Tachado~~
-
-<u>Texto Subrayado</u> -->
-
-<!-- > Esto es una cita dentro del bloque de texto breve. Y podemos seguir colocando mas texto. -->
-
-<!-- - [x] Tarea 1
-- [x] Tarea 2
-- [ ] Tarea 3  -->
-
-
-<!-- 
-  | Petición                            | URL                                    | Descripción |
-  | :----: | ----------------------------------- | -------------------------------------- |
-  | GET  | `http://localhost:3008/frutas`      | Obtener todas las frutas               |
-  | GET  | `http://localhost:3008/frutas/{id}` | Obtener una fruta específica por su ID |
-  | POST | `http://localhost:3008/frutas`      | Grabar una nueva fruta                                        |                                        |
- -->
-
-
-<!-- ```js
-    let numero = 1;
-    let mensaje = "Hola, mundo!";
-``` -->
-
-<!-- ![Aprendiendo MongoDB](https://live.mrf.io/statics/i/ps/www.muylinux.com/wp-content/uploads/2019/01/mongodb.png?width=1200&enable=upscale)
-
-[Aprendiendo Mongo](https://www.mongodb.com/es)
-
-[![Aprendiendo Mongo](https://live.mrf.io/statics/i/ps/www.muylinux.com/wp-content/uploads/2019/01/mongodb.png?width=1200&enable=upscale "Ir a Mongo Atlas")](https://www.mongodb.com/es)  -->
+![Modelo Api Post](https://i.imgur.com/sJ5ARb0.png)
 
 
 
-<!-- 1 [CRUD](#crud)
-   
-1.1 [Create](#create)
+## Requisitos Previos
 
-1.2 [Read](#read)
+Asegúrate de tener Node.js y MySQL instalados en tu sistema antes de ejecutar la aplicación. Además, crea una base de datos MySQL y configura las credenciales en un archivo `.env` en la raíz del proyecto como se muestra en el siguiente ejemplo.
 
-1.3 [Update](#update)
+## Archivo `.env`
 
-1.4 [Delete](#delete)
+### Configuración de la base de datos
+```plaintext
+DB_HOST=localhost
+DB_PORT=3000
+DB_NAME=mi_basededatos(en este caso Posts)
+DB_USER=mi_usuario(root)
+DB_PASSWORD=mi_contraseña_secreta_de_mysql
+```
+## Instalación
 
-# CRUD
+1. Clona este repositorio:
 
-### API de Frutas - Documentación de Peticiones.
+   ```bash
+   git clone https://github.com/urldelproyecto...
+   ```
 
-Esta documentación describe las peticiones de creación (create), lectura (read), actualización (update) y eliminación (delete) disponibles en la API de Frutas. Estas peticiones permiten interactuar con elementos existentes en la API, como registros o recursos.
+2. Navega al directorio del proyecto:
 
-### Requisitos previos
+   ```bash
+   cd posts...
+   ```
 
-Antes de realizar peticiones de creación, asegúrate de tener la siguiente información y configuración:
+3. Instala las dependencias:
 
-- Acceso a la URL base de la API: `http://localhost:3008`
-- Credenciales de autenticación, si es necesario.
-- Conocimiento de los campos y formatos requeridos para crear un elemento en la API.
+   ```bash
+   npm install
+   ```
 
-## Create
+4. Inicia el servidor:
 
-### Peticiones disponibles
+   ```bash
+   npm start
+   ```
 
-A continuación se presentan las peticiones de creación disponibles en la API de frutas:
+La API estará disponible en `http://localhost:3000`.
 
-### Crear un nuevo registro
+## Endpoints
 
-- **Descripción:** Crea un nuevo registro en la base de datos.
-- **URL:** `https://localhost:3008/frutas`
-- **Método:** POST
-- **Cuerpo de la petición:** Debes proporcionar los datos necesarios en el cuerpo de la petición en formato JSON. Asegúrate de incluir todos los campos requeridos para crear un registro.
+A continuación, se detallan los endpoints disponibles y cómo utilizarlos:
 
-Ejemplo de cuerpo de la petición:
-```json
-{
-    "id": 1,
-    "imagen": "🍌",
-    "nombre": "Bananas",
-    "importe": 220,
-    "stock": 50
+### Categorías
+
+#### Listar todas las categorías
+
+- **URL**: `/api/categorias`
+- **Método**: `GET`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    [
+      {
+        "Categoria_id": 1,
+        "Nombre_categoria": "Tecnología"
+      },
+      {
+        "Categoria_id": 2,
+        "Nombre_categoria": "Deportes"
+      }
+    ]
+    ```
+
+#### Crear una nueva categoría
+
+- **URL**: `/api/categorias`
+- **Método**: `POST`
+- **Cuerpo de la Petición**:
+
+  ```json
+  {
+    "Nombre_categoria": "Ciencia"
   }
-```
+  ```
 
-- **Respuesta exitosa:** La petición devuelve un código de estado 201 (Created) y la respuesta contiene los detalles del nuevo registro creado.
+- **Respuesta Exitosa**:
+  - **Código**: 201 Created
+  - **Ejemplo de Respuesta**:
 
-- **Respuesta de error:** Si la petición falla, se devolverá un código de estado apropiado (por ejemplo, 400 para errores de validación) y la respuesta contendrá información adicional sobre el error.
+    ```json
+    {
+      "Categoria_id": 3,
+      "Nombre_categoria": "Ciencia"
+    }
+    ```
 
-### Notas adicionales
+#### Obtener una categoría por ID
 
-- Asegúrate de cumplir con los requisitos de autenticación, si es necesario, para realizar peticiones de creación.
-- Verifica los campos requeridos y los formatos esperados en la documentación de la API para cada tipo de elemento que desees crear.
-- Utiliza las respuestas de error para identificar y solucionar problemas en caso de que la petición de creación falle.
+- **URL**: `/api/categoria/:id`
+- **Método**: `GET`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
 
-## Read
+    ```json
+    {
+      "Categoria_id": 1,
+      "Nombre_categoria": "Tecnología"
+    }
+    ```
 
-## Peticiones disponibles
+#### Actualizar una categoría por ID
 
-A continuación se presentan las peticiones de lectura, en la API de Frutas:
+- **URL**: `/api/categoria/:id`
+- **Método**: `PUT`
+- **Cuerpo de la Petición**:
 
-### Leer un registro
-
-- **Descripción:** Obtiene los detalles de un registro específico.
-- **URL:** `http://localhost:3008/frutas/{id}`
-- **Método:** GET
-- **Parámetros de la petición:** Reemplaza `{id}` en la URL con el identificador del registro que deseas obtener.
-
-- **Respuesta exitosa:** La petición devuelve un código de estado 200 (OK) y la respuesta contiene los detalles del registro solicitado.
-
-- **Respuesta de error:** Si la petición falla o el registro no existe, se devolverá un código de estado apropiado (por ejemplo, 404 si el registro no se encuentra) y la respuesta contendrá información adicional sobre el error.
-
-## Update
-
-### Actualizar un recurso
-
-- **Descripción:** Actualiza los detalles de un recurso existente en la API.
-- **URL:** `http://localhost:3008/frutas/{id}`
-- **Método:** PUT
-- **Parámetros de la petición:** Reemplaza `{id}` en la URL con el identificador del objeto que deseas actualizar.
-
-- **Cuerpo de la petición:** Debes proporcionar los nuevos datos del objeto en el cuerpo de la petición en formato JSON. Asegúrate de incluir todos los campos requeridos para la actualización.
-
-Ejemplo de cuerpo de la petición:
-```json
-{
-    "id": 1,
-    "imagen": "🍌",
-    "nombre": "Bananas",
-    "importe": 220,
-    "stock": 50
+  ```json
+  {
+    "Nombre_categoria": "Tecnología e Innovación"
   }
-```
+  ```
 
-- **Respuesta exitosa:** La petición devuelve un código de estado 200 (OK) y la respuesta contiene los detalles actualizados del objeto.
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
 
-- **Respuesta de error:** Si la petición falla, se devolverá un código de estado apropiado (por ejemplo, 400 para errores de validación) y la respuesta contendrá información adicional sobre el error.
+    ```json
+    {
+      "Categoria_id": 1,
+      "Nombre_categoria": "Tecnología e Innovación"
+    }
+    ```
 
-## Delete
+#### Eliminar una categoría por ID
 
-### Eliminar un registro
+- **URL**: `/api/categoria/:id`
+- **Método**: `DELETE`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
 
-- **Descripción:** Elimina un registro existente de la base de datos.
-- **URL:** `http://localhost:3008/frutas/{id}`
-- **Método:** DELETE
-- **Parámetros de la petición:** Reemplaza `{id}` en la URL con el identificador del registro que deseas eliminar.
+    ```json
+    {
+      "mensaje": "Categoría eliminada con éxito"
+    }
+    ```
 
-- **Respuesta exitosa:** La petición devuelve un código de estado 204 (No Content) si la eliminación fue exitosa.
+### Comentarios
 
-- **Respuesta de error:** Si la petición falla o el registro no existe, se devolverá un código de estado apropiado (por ejemplo, 404 si el registro no se encuentra) y la respuesta contendrá información adicional sobre el error.
+#### Listar todos los comentarios
 
-## Notas adicionales
+- **URL**: `/api/comentarios`
+- **Método**: `GET`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
 
-- Asegúrate de cumplir con los requisitos de autenticación, si es necesario, para realizar las peticiones de lectura, actualización o eliminación.
-- Verifica los identificadores, parámetros y formatos esperados en la documentación de la API para cada tipo de operación.
-- Utiliza las respuestas de error para identificar y solucionar problemas en caso de que alguna petición falle. -->
+    ```json
+    [
+      {
+        "Comentario_id": 1,
+        "Contenido_comentario": "Excelente artículo",
+        "Usuario_ID": 1,
+        "Post_ID": 1
+      },
+      {
+        "Comentario_id": 2,
+        "Contenido_comentario": "Gracias por compartir",
+        "Usuario_ID": 2,
+        "Post_ID": 1
+      }
+    ]
+    ```
+
+#### Crear un nuevo comentario
+
+- **URL**: `/api/comentarios`
+- **Método**: `POST`
+- **Cuerpo de la Petición**:
+
+  ```json
+  {
+    "Contenido_comentario": "Gran publicación",
+    "Usuario_ID": 1,
+    "Post_ID": 2
+  }
+  ```
+
+- **Respuesta Exitosa**:
+  - **Código**: 201 Created
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    {
+      "Comentario_id": 3,
+      "Contenido_comentario": "Gran publicación",
+      "Usuario_ID": 1,
+      "Post_ID": 2
+    }
+    ```
+
+#### Obtener un comentario por ID
+
+- **URL**: `/api/comentario/:id`
+- **Método**: `GET`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    {
+      "Comentario_id": 1,
+      "Contenido_comentario": "Excelente artículo",
+      "Usuario_ID": 1,
+      "Post_ID": 1
+    }
+    ```
+
+#### Actualizar un comentario por ID
+
+- **URL**: `/api/comentario/:id`
+- **Método**: `PUT`
+- **Cuerpo de la Petición**:
+
+  ```json
+  {
+    "Contenido_comentario": "Gran artículo"
+  }
+  ```
+
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    {
+      "Comentario_id": 1,
+      "Contenido_comentario": "Gran artículo",
+      "Usuario_ID": 1,
+      "Post_ID": 1
+    }
+    ```
+
+#### Eliminar un comentario por ID
+
+- **URL**: `/api/comentario/:id`
+- **Método**: `DELETE`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    {
+      "mensaje": "Comentario eliminado con éxito"
+    }
+    ```
+
+### Etiquetas
+
+#### Listar todas las etiquetas
+
+- **URL**: `/api/etiquetas`
+- **Método**: `GET`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    [
+      {
+        "Etiqueta_id": 1,
+        "Nombre_etiqueta": "Node.js"
+      },
+      {
+        "Etiqueta_id": 2,
+        "Nombre_etiqueta": "Express"
+      }
+    ]
+    ```
+
+#### Crear una nueva etiqueta
+
+- **URL**: `/api/etiquetas`
+- **Método**: `POST`
+- **Cuerpo de la Petición**:
+
+  ```json
+  {
+    "Nombre_etiqueta": "Sequelize"
+  }
+  ```
+
+- **Respuesta Exitosa**:
+  - **Código**: 201 Created
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    {
+      "Etiqueta_id": 3,
+      "Nombre_etiqueta": "Sequelize"
+    }
+    ```
+
+#### Obtener una etiqueta por ID
+
+- **URL**: `/api/etiqueta/:id`
+- **Método**: `GET`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    {
+      "Etiqueta_id": 1,
+      "Nombre_etiqueta": "Node.js"
+    }
+    ```
+
+#### Actualizar una etiqueta por ID
+
+- **URL**: `/api/etiqueta/:id`
+- **Método**: `PUT`
+- **Cuerpo de la Petición**:
+
+  ```json
+  {
+    "Nombre_etiqueta": "Node.js y Express"
+  }
+  ```
+
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    {
+      "Etiqueta_id": 1,
+      "Nombre_etiqueta": "Node.js y Express"
+    }
+    ```
+
+#### Eliminar una etiqueta por ID
+
+- **URL**: `/api/etiqueta/:id`
+- **Método**: `DELETE`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    {
+      "mensaje": "Etiqueta eliminada con éxito"
+    }
+    ```
 
 
-# Diagrama de Flujo
+## Tabla `Post_etiquetas`
+
+La tabla `Post_etiquetas` se utiliza para mantener un registro de las relaciones entre las publicaciones y las etiquetas. Esta tabla es esencial para implementar una relación de muchos a muchos entre las publicaciones y las etiquetas, ya que permite asociar múltiples etiquetas con múltiples publicaciones.
+
+### Esquema de la tabla
+
+| Campo         | Tipo   | Descripción                                                   |
+| ------------- | ------ | ------------------------------------------------------------- |
+| `id`          | Entero | Identificador único de la relación.                           |
+| `post_id`     | Entero | Clave foránea que hace referencia a la tabla `Publicaciones`. |
+| `etiqueta_id` | Entero | Clave foránea que hace referencia a la tabla `Etiquetas`.     |
+
+### Relaciones
+
+- `post_id`: Esta columna se relaciona con la tabla `Publicaciones` y representa la publicación a la que se asocia una etiqueta.
+- `etiqueta_id`: Esta columna se relaciona con la tabla `Etiquetas` y representa la etiqueta asociada a una publicación.
+
+### Ejemplo de uso
+
+Supongamos que tenemos las siguientes entradas en la tabla `Post_etiquetas`:
+
+| id  | post_id | etiqueta_id |
+| --- | ------- | ----------- |
+| 1   | 101     | 5           |
+| 2   | 102     | 6           |
+| 3   | 103     | 5           |
+
+Esto indica que:
+- La publicación con `id` 101 está asociada a la etiqueta con `id` 5.
+- La publicación con `id` 102 está asociada a la etiqueta con `id` 6.
+- La publicación con `id` 103 está asociada a la etiqueta con `id` 5.
+
+Esta relación permite etiquetar múltiples publicaciones con las mismas etiquetas y realizar consultas relacionadas con las etiquetas asociadas a una publicación específica o las publicaciones asociadas a una etiqueta.
 
 
-```mermaid
-graph LR;
-    A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
-```
+### Endpoints de Post_etiquetas
 
+Aquí se describen los endpoints relacionados con esta funcionalidad.
+
+#### Crear un nuevo registro de Post_Etiquetas
+
+- **URL**: `/api/posts_etiquetas`
+- **Método**: `POST`
+- **Cuerpo de la Petición**:
+
+  ```json
+  {
+    "Post_ID": 1,
+    "Etiqueta_ID": 2
+  }
+  ```
+
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    {
+      "Post_etiqueta_ID": 1,
+      "Post_ID": 1,
+      "Etiqueta_ID": 2
+    }
+    ```
+
+#### Obtener todos los registros de Post_Etiquetas
+
+- **URL**: `/api/posts_etiquetas`
+- **Método**: `GET`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    [
+      {
+        "Post_etiqueta_ID": 1,
+        "Post_ID": 1,
+        "Etiqueta_ID": 2
+      },
+      {
+        "Post_etiqueta_ID": 2,
+        "Post_ID": 2,
+        "Etiqueta_ID": 1
+      }
+    ]
+    ```
+
+#### Actualizar un registro de Post_Etiquetas por ID
+
+- **URL**: `/api/post_etiqueta/:id`
+- **Método**: `PUT`
+- **Cuerpo de la Petición**:
+
+  ```json
+  {
+    "Post_ID": 3,
+    "Etiqueta_ID": 4
+  }
+  ```
+
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    {
+      "Post_etiqueta_ID": 1,
+      "Post_ID": 3,
+      "Etiqueta_ID": 4
+    }
+    ```
+
+#### Eliminar un registro de Post_Etiquetas por ID
+
+- **URL**: `/api/post_etiqueta/:id`
+- **Método**: `DELETE`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    {
+      "message": "Registro de Post_Etiquetas eliminado exitosamente"
+    }
+    ```
+
+### Usuarios
+
+#### Listar todos los usuarios
+
+- **URL**: `/api/usuarios`
+- **Método**: `GET`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    [
+      {
+        "Usuario_id": 1,
+        "Nombre_usuario": "usuario1",
+        "Correo_electronico": "usuario1@example.com"
+      },
+      {
+        "Usuario_id": 2,
+        "Nombre_usuario": "usuario2",
+        "Correo_electronico": "usuario2@example.com"
+      }
+    ]
+    ```
+
+#### Crear un nuevo usuario
+
+- **URL**: `/api/usuarios`
+- **Método**: `POST`
+- **Cuerpo de la Petición**:
+
+  ```json
+  {
+    "Nombre_usuario": "usuario3",
+    "Correo_electronico": "usuario3@example.com"
+  }
+  ```
+
+- **Respuesta Exitosa**:
+  - **Código**: 201 Created
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    {
+      "Usuario_id": 3,
+      "Nombre_usuario": "usuario3",
+      "Correo_electronico": "usuario3@example.com"
+    }
+    ```
+
+#### Obtener un usuario por ID
+
+- **URL**: `/api/usuario/:id`
+- **Método**: `GET`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    {
+      "Usuario_id": 1,
+      "Nombre_usuario": "usuario1",
+      "Correo_electronico": "usuario1@example.com"
+    }
+    ```
+
+#### Actualizar un usuario por ID
+
+- **URL**: `/api/usuario/:id`
+- **Método**: `PUT`
+- **Cuerpo de la Petición**:
+
+  ```json
+  {
+    "Nombre_usuario": "nuevo_nombre_usuario"
+  }
+  ```
+
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    {
+      "Usuario_id": 1,
+      "Nombre_usuario": "nuevo_nombre_usuario",
+      "Correo_electronico": "usuario1@example.com"
+    }
+    ```
+
+#### Eliminar un usuario por ID
+
+- **URL**: `/api/usuario/:id`
+- **Método**: `DELETE`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    {
+      "mensaje": "Usuario eliminado con éxito"
+    }
+    ```
+
+#### Obtener usuarios con sus comentarios
+
+- **URL**: `/api/usuarios/comentarios`
+- **Método**: `GET`
+- **Respuesta Exitosa (Código 200)**:
+
+  ```json
+  [
+    {
+      "Usuario_ID": 1,
+      "Nombre_usuario": "Usuario1",
+      "Correo_electronico": "usuario1@example.com",
+      "Comentarios": [
+        {
+          "Contenido_comentario": "Comentario 1"
+        },
+        {
+          "Contenido_comentario": "Comentario 2"
+        }
+      ]
+    },
+    {
+      "Usuario_ID": 2,
+      "Nombre_usuario": "Usuario2",
+      "Correo_electronico": "usuario2@example.com",
+      "Comentarios": [
+        {
+          "Contenido_comentario": "Comentario 3"
+        },
+        {
+          "Contenido_comentario": "Comentario 4"
+        }
+      ]
+    }
+  ]
+  ```
+
+#### Obtener comentarios de un usuario por su ID
+
+- **URL**: `/api/usuario/comentarios/:id`
+- **Método**: `GET`
+- **Respuesta Exitosa (Código 200)**:
+
+  ```json
+  [
+    {
+      "Contenido_comentario": "Comentario 1"
+    },
+    {
+      "Contenido_comentario": "Comentario 2"
+    }
+  ]
+  ```
+
+### Posts
+
+#### Listar todos los posts
+
+- **URL**: `/api/posts`
+- **Método**: `GET`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    [
+      {
+        "Post_id": 1,
+        "Titulo_post": "Introducción a Node.js",
+        "Contenido_post": "Este es un post de introducción a Node.js.",
+        "Usuario_ID": 1
+      },
+      {
+        "Post_id": 2,
+        "Titulo_post": "Creando una API con Express",
+        "Contenido_post": "En este post, aprenderemos a crear una API con Express.",
+        "Usuario_ID": 2
+      }
+    ]
+    ```
+
+#### Crear un nuevo post
+
+- **URL**: `/api/posts`
+- **Método**: `POST`
+- **Cuerpo de la Petición**:
+
+  ```json
+  {
+    "Titulo_post": "Nuevo Post",
+    "Contenido_post": "Este es un nuevo post.",
+    "Usuario_ID": 1
+  }
+  ```
+
+- **Respuesta Exitosa**:
+  - **Código**: 201 Created
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    {
+      "Post_id": 3,
+      "Titulo_post": "Nuevo Post",
+      "Contenido_post": "Este es un nuevo post.",
+      "Usuario_ID": 1
+    }
+    ```
+
+#### Obtener un post por ID
+
+- **URL**: `/api/post/:id`
+- **Método**: `GET`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    {
+      "Post_id": 1,
+      "Titulo_post": "Introducción a Node.js",
+      "Contenido_post": "Este es un post de introducción a Node.js.",
+      "Usuario_ID": 1
+    }
+    ```
+
+#### Actualizar un post por ID
+
+- **URL**: `/api/post/:id`
+- **Método**: `PUT`
+- **Cuerpo de la Petición**:
+
+  ```json
+  {
+    "Titulo_post": "Nuevo Título",
+    "Contenido_post": "Este es un post actualizado."
+  }
+  ```
+
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    {
+      "Post_id": 1,
+      "Titulo_post": "Nuevo Título",
+      "Contenido_post": "Este es un post actualizado.",
+      "Usuario_ID": 1
+    }
+    ```
+
+#### Eliminar un post por ID
+
+- **URL**: `/api/post/:id`
+- **Método**: `DELETE`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    {
+      "mensaje": "Post eliminado con éxito"
+    }
+    ```
+
+### Relaciones
+
+#### Obtener todos los comentarios de un post
+
+- **URL**: `/api/post/:id/comentarios`
+- **Método**: `GET`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    [
+      {
+        "Comentario_id": 1,
+        "Contenido_comentario": "Excelente artículo",
+        "Usuario_ID": 1,
+        "Post_ID": 1
+      },
+      {
+        "Comentario_id": 2,
+        "Contenido_comentario": "Gracias por compartir",
+        "Usuario_ID": 2,
+        "Post_ID": 1
+      }
+    ]
+    ```
+
+#### Obtener todos los posts de un usuario
+
+- **URL**: `/api/usuario/:id/posts`
+- **Método**: `GET`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+
+    ```json
+    [
+      {
+        "Post_id": 1,
+        "Titulo_post": "Introducción a Node.js",
+        "Contenido_post": "Este es un post de introducción a Node.js.",
+        "Usuario_ID": 1
+      },
+      {
+        "Post_id": 3,
+        "Titulo_post": "Nuevo Post",
+        "Contenido_post": "Este es un nuevo post.",
+        "Usuario_ID": 1
+      }
+    ]
+    ```
+
+#### Obtener etiquetas de una publicación
+
+- **URL**: `/api/post/:id/etiquetas`
+- **Método**: `GET`
+- **Respuesta Exitosa (Código 200)**:
+
+  ```json
+  [
+    {
+      "Nombre_etiqueta": "Tecnología"
+    },
+    {
+      "Nombre_etiqueta": "Programación"
+    }
+  ]
+  ```
+
+### Errores
+
+La API devuelve mensajes de error con los códigos de estado correspondientes en caso de que ocurran problemas. Asegúrate de manejar adecuadamente estos errores en tu aplicación cliente.
+
+## Conclusiones
+
+Esta es una API de ejemplo que utiliza Node.js, Express y Sequelize para gestionar posts, comentarios, usuarios, etiquetas y categorías. Puedes utilizar esta API como base para desarrollar tu propia aplicación web o móvil. Asegúrate de personalizarla según tus necesidades específicas y de implementar la seguridad y la autorización adecuadas para proteger tus recursos.
