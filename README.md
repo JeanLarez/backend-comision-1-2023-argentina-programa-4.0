@@ -10,9 +10,16 @@ Esta es una API de ejemplo que utiliza Node.js, Express y Sequelize para gestion
 
 ![Modelo Api Post](https://i.imgur.com/71yGKvH.png)
 
+##
+
 ![Modelo Api Post](https://i.imgur.com/vFMGmKd.png)
 
+##
+
 ![Modelo Api Post](https://i.imgur.com/ULQa9Nx.png)
+
+
+##
 
 ![Modelo Api Post](https://i.imgur.com/sJ5ARb0.png)
 
