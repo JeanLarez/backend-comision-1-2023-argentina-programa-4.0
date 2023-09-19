@@ -9,6 +9,7 @@ Esta es una API de ejemplo que utiliza Node.js, Express y Sequelize para gestion
 ## Modelo - Entidad - Relación
 
 #### Entidades - Atributos
+
 ![Modelo Api Post](https://i.imgur.com/71yGKvH.png)
 
 #### Relaciones
