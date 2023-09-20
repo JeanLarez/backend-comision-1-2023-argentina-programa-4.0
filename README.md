@@ -851,3 +851,243 @@ La API devuelve mensajes de error con los códigos de estado correspondientes en
 ## Conclusiones
 
 Esta es una API de ejemplo que utiliza Node.js, Express y Sequelize para gestionar posts, comentarios, usuarios, etiquetas y categorías. Puedes utilizar esta API como base para desarrollar tu propia aplicación web o móvil. Asegúrate de personalizarla según tus necesidades específicas y de implementar la seguridad y la autorización adecuadas para proteger tus recursos.
+
+
+
+
+
+---
+
+# Documentación del Proyecto "practica_sequelize"
+
+Este proyecto utiliza Node.js, Express, Sequelize y MySQL para crear una API REST que permite interactuar con datos de productos y empleados de la base de datos Northwind. A continuación, se detallan los principales componentes y endpoints de la API.
+
+Esta documentación describe los principales endpoints de la API y la estructura de carpetas del proyecto "practica_sequelize". Asegúrate de configurar las variables de entorno en el archivo `.env` para que la conexión a la base de datos funcione correctamente.
+
+```
+DB_SCHEMA=Northwind
+DB_USER=root
+DB_PASSWORD=tu_clave_secreta
+DB_HOST=localhost
+PORT=3000
+```
+
+En este archivo:
+
+- `DB_SCHEMA`: Debes especificar el nombre del esquema de tu base de datos MySQL (en este caso, "Northwind").
+- `DB_USER`: Especifica el nombre de usuario de MySQL (puede ser "root" u otro).
+- `DB_PASSWORD`: Proporciona la contraseña de MySQL correspondiente al usuario especificado.
+- `DB_HOST`: Indica la dirección del servidor de la base de datos (generalmente "localhost" para desarrollo local).
+- `PORT`: El puerto en el que deseas que tu servidor Express escuche las solicitudes (en este caso, 3000).
+
+Asegúrate de que estos valores coincidan con la configuración de tu base de datos y servidor Express.
+
+## Codigo sql para crear la vista.
+
+```sql
+VIEW_NAME=productsandcategories
+VIEW_QUERY=SELECT P.ProductID, P.ProductName, P.CategoryID, C.CategoryName, P.QuantityPerUnit, P.UnitPrice, P.UnitsInStock FROM Northwind.Products P RIGHT JOIN Northwind.Categories C ON C.CategoryID = P.CategoryID ORDER BY P.ProductID;
+```
+
+En este ejemplo:
+
+- `VIEW_NAME`: Especifica el nombre de la vista que debes crear en tu base de datos (en este caso, "productsandcategories").
+- `VIEW_QUERY`: Proporciona la consulta SQL que utilizaras para crear la vista en tu base de datos.
+
+Asegúrate de que estos valores coincidan con la vista en tu base de datos.
+
+## Inicio del Servidor
+
+El servidor se inicia utilizando el siguiente comando:
+
+```bash
+npm start
+```
+
+El servidor escuchará en el puerto especificado en el archivo `.env` o en el puerto 3000 por defecto.
+
+---
+
+## Estructura de Carpetas
+
+El proyecto está organizado en la siguiente estructura de carpetas:
+
+- `src/`
+  - `conexion/`: Contiene el archivo `connection.js` que establece la conexión a la base de datos MySQL.
+  - `modelos/`: Contiene los modelos de Sequelize para las tablas `Employee` y `Product`.
+- `.env`: Archivo de configuración de variables de entorno para la conexión a la base de datos.
+- `package.json`: Archivo de configuración de dependencias y scripts.
+- `server.js`: Archivo principal que inicia el servidor Express y define los endpoints de la API.
+
+## Endpoints
+
+### Productos
+
+#### Obtener todos los productos
+
+- **URL**: `/productos`
+- **Método**: `GET`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+    ```json
+    [
+      {
+        "productID": 1,
+        "productName": "Producto 1",
+        ...
+      },
+      {
+        "productID": 2,
+        "productName": "Producto 2",
+        ...
+      },
+      ...
+    ]
+    ```
+
+#### Obtener un producto por ID
+
+- **URL**: `/productos/:productID`
+- **Método**: `GET`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+    ```json
+    {
+      "productID": 1,
+      "productName": "Producto 1",
+      ...
+    }
+    ```
+
+#### Buscar productos por nombre
+
+- **URL**: `/productos/nombre/:productName`
+- **Método**: `GET`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+    ```json
+    {
+      "productID": 1,
+      "productName": "Producto 1",
+      ...
+    }
+    ```
+
+#### Buscar productos por categoría
+
+- **URL**: `/productos/categoria/:categoryID`
+- **Método**: `GET`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+    ```json
+    [
+      {
+        "productID": 1,
+        "productName": "Producto 1",
+        ...
+      },
+      {
+        "productID": 2,
+        "productName": "Producto 2",
+        ...
+      },
+      ...
+    ]
+    ```
+
+#### Buscar productos por precio mayor a
+
+- **URL**: `/productos/importemayor/:unitPrice`
+- **Método**: `GET`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+    ```json
+    [
+      {
+        "productID": 1,
+        "productName": "Producto 1",
+        ...
+      },
+      {
+        "productID": 2,
+        "productName": "Producto 2",
+        ...
+      },
+      ...
+    ]
+    ```
+
+#### Vista de Productos y Categorías
+
+- **URL**: `/productosycategorias`
+- **Método**: `GET`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+    ```json
+    [
+      {
+        "productID": 1,
+        "productName": "Producto 1",
+        "categoryID": 1,
+        "categoryName": "Categoría 1",
+        ...
+      },
+      {
+        "productID": 2,
+        "productName": "Producto 2",
+        "categoryID": 2,
+        "categoryName": "Categoría 2",
+        ...
+      },
+      ...
+    ]
+    ```
+
+### Empleados
+
+#### Obtener todos los empleados
+
+- **URL**: `/empleados`
+- **Método**: `GET`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+    ```json
+    [
+      {
+        "employeeID": 1,
+        "LastName": "Apellido 1",
+        "firstName": "Nombre 1",
+        ...
+      },
+      {
+        "employeeID": 2,
+        "LastName": "Apellido 2",
+        "firstName": "Nombre 2",
+        ...
+      },
+      ...
+    ]
+    ```
+
+#### Obtener un empleado por ID
+
+- **URL**: `/empleados/:employeeID`
+- **Método**: `GET`
+- **Respuesta Exitosa**:
+  - **Código**: 200 OK
+  - **Ejemplo de Respuesta**:
+    ```json
+    {
+      "employeeID": 1,
+      "LastName": "Apellido 1",
+      "firstName": "Nombre 1",
+      ...
+    }
+    ```
